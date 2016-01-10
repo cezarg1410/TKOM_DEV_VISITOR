@@ -11,10 +11,8 @@ public class Logging {
 	private static Logger logger;
 	private static ConsoleHandler consoleHandler;
 	private static FileHandler fileHandler;
-	private static FileHandler errorHandler;
 	private static final String LOG_DIR = "./txt/";
 	private static final String LOG_EXT = ".txt";
-	private static final String ERROR_NAME = "ERROR"; 
 
 	static 
 	{
@@ -26,7 +24,6 @@ public class Logging {
 			String fn = createFileName();
 			
 			fileHandler = new FileHandler(LOG_DIR+fn);
-			errorHandler = new FileHandler(LOG_DIR+ERROR_NAME + fn);
 		
 		} catch (SecurityException | IOException e) {
 			
@@ -37,7 +34,6 @@ public class Logging {
 		fileHandler.setFormatter(new SimpleFormatter());
 		logger.addHandler(consoleHandler);
 		logger.addHandler(fileHandler);
-		logger.addHandler(errorHandler);
 	
 	}
 	
