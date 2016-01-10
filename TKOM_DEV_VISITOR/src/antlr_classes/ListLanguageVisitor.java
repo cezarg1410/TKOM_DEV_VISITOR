@@ -97,6 +97,12 @@ public interface ListLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_def_args(ListLanguageParser.Function_def_argsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ListLanguageParser#function_call_args}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call_args(ListLanguageParser.Function_call_argsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ListLanguageParser#loop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

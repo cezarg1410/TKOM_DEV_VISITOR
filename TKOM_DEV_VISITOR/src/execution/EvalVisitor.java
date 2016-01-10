@@ -119,7 +119,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitFunction_def(Function_defContext ctx) {
-		exec.addFunctionDef(ctx);
+		exec.addFunctionDefContext(ctx);
 		return super.visitFunction_def(ctx);
 	}
 

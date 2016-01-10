@@ -88,11 +88,12 @@ function_def		: (AT ID  LPAREN  function_def_args  RPAREN
 					LBRACE
 						(operation)*
 					RBRACE SEMI);
-function_call		: ID ( LPAREN (value | ID)
-						(COMA (value | ID))*  RPAREN )
-						| (ID LPAREN RPAREN )
-						;
+function_call		: ID function_call_args;
+		
 function_def_args: ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID))  
 					(COMA ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID)))*;
+function_call_args :( LPAREN (value | ID)
+						(COMA (value | ID))*  RPAREN )
+						| (ID LPAREN RPAREN );
 loop				: FOREACH  LPAREN  VAR  IN  ID  RPAREN  LBRACE  operation *  RBRACE SEMI; 
 write		    	: PRINT  LPAREN  ID  RPAREN SEMI; 

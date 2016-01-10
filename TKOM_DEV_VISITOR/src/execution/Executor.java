@@ -10,6 +10,7 @@ import java.util.Queue;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import antlr_classes.ListLanguageParser.Function_callContext;
 import antlr_classes.ListLanguageParser.Function_defContext;
 import antlr_classes.ListLanguageParser.List_var_decContext;
 import antlr_classes.ListLanguageParser.Numerical_var_decContext;
@@ -66,7 +67,7 @@ public class Executor {
 	}
 	
 	
-	public void addFunctionDef(Function_defContext ctx)
+	public void addFunctionDefContext(Function_defContext ctx)
 	{
 		functions.put(ctx.ID().toString(),new FunctionDefinition(ctx));
 	}
@@ -106,9 +107,27 @@ public class Executor {
 			}
 			
 			}
+			else if(ctx.getCtx() instanceof Function_callContext)
+			{
+				callFunction(ctx);
+			}
 		}
 	}
 	
+	private void callFunction(ParserRuleContextNode ctx) {
+		
+		Function_callContext f = (Function_callContext) ctx.getCtx();
+		//if(f.id
+		if(f.ID().toString().equals("append"))
+		{
+			if(f.function_call_args().children.size() != 2)
+				throw new ExecutionException("Nieprawidłowa ilość agumentów funkcji \"append\". LINIA: "+ctx.start.getLine()+System.lineSeparator());
+			
+		}
+		
+	}
+
+
 	private void addNumber(ParserRuleContextNode ctx) {
 //		globalNumbers.put(id.toString(), new NumberElement(Integer.parseInt(number.toString())));
 		Numerical_var_decContext l = (Numerical_var_decContext) ctx.getCtx();
