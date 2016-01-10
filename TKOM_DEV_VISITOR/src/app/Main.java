@@ -1,6 +1,8 @@
 package app;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -16,6 +18,7 @@ public class Main {
 	public static final String SOURCE_PATH = "args/sample.txt";
 	public static final String ENCODING = "UTF-8";
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
 			Logging.setup();
@@ -27,6 +30,13 @@ public class Main {
 			Executor exec = new Executor();
 			
 			new EvalVisitor(parser,exec).visit(tree);
+			exec.runProgram();
+			Iterator it = exec.globalLists.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		        it.remove(); // avoids a ConcurrentModificationException
+		    }
 			int a =2;
 		
 		} catch (IOException e) {

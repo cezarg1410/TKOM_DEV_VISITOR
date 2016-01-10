@@ -100,6 +100,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 //		{
 //			evalElementaryCondistion(cond);
 //		}
+		exec.addOperation(ctx);
 		return super.visitIf_statement(ctx);
 	}
 
@@ -112,7 +113,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 	@Override
 	public Integer visitElementary_condition(Elementary_conditionContext ctx) {
 		// TODO Auto-generated method stub
-		evalElementaryCondition(ctx);
+		//evalElementaryCondition(ctx);
 		return super.visitElementary_condition(ctx);
 	}
 
@@ -130,7 +131,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitLoop(LoopContext ctx) {
-		// TODO Auto-generated method stub
+		exec.addOperation(ctx);
 		return super.visitLoop(ctx);
 	}
 
@@ -212,39 +213,74 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 		super.finalize();
 	}
 
-	private boolean evalElementaryCondition(Elementary_conditionContext cond) {
-	switch(cond.LOGICAL_OPERATOR().getText())
+	private Integer evalVariable(ParseTree pt)
 	{
-		case "===":
+//		if(pt instanceof ValueContext)
+//		{
+//			ValueContext vc = (ValueContext) pt;
+//			if(vc.NUMBER() != null)
+//			{
+//				return Integer.parseInt(vc.NUMBER().toString());
+//			}
+//			if(exec.getCurrentFunction() == null)
+//			{
+//				exec.getListElement(vc.list_element().ID(), vc.list_element().NUMBER());
+//			}
+//			else 
+//			{
+//				
+//			}
+//		}
+//		
+		
+		
+		
+		return 0;
+	}
+	
+	
+	private boolean evalElementaryCondition(Elementary_conditionContext cond) {
+	
+		Integer first = evalVariable(cond.getChild(0));
+		Integer second = evalVariable(cond.getChild(0));
+
+		if(cond.getChild(0) instanceof ValueContext)
 		{
-			break;
+			int a = 2;
 		}
-		case "==":
+		
+		switch(cond.LOGICAL_OPERATOR().getText())
 		{
-			
-			System.out.println("==");
-			break;
-		}
-		case "!=":
-		{
-			break;
-		}
-		case ">":
-		{
-			break;
-		}
-		case "<":
-		{
-			break;
-		}
-		case "<=":
-		{
-			break;
-		}
-		case ">=":
-		{
-			break;
-		}
+			case "===":
+			{
+				break;
+			}
+			case "==":
+			{
+				
+				System.out.println("==");
+				break;
+			}
+			case "!=":
+			{
+				break;
+			}
+			case ">":
+			{
+				break;
+			}
+			case "<":
+			{
+				break;
+			}
+			case "<=":
+			{
+				break;
+			}
+			case ">=":
+			{
+				break;
+			}
 	}
 	
 	return true;

@@ -79,8 +79,7 @@ elementary_condition :
 					| (function_call LOGICAL_OPERATOR list)
 					| (list LOGICAL_OPERATOR function_call)
 					| (list LOGICAL_OPERATOR list);								
-function_def		: (AT ID  LPAREN  ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID))  
-					(COMA ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID)))*  RPAREN 
+function_def		: (AT ID  LPAREN  function_def_args  RPAREN 
 					LBRACE
 						(operation)*
 					RBRACE SEMI)
@@ -93,6 +92,7 @@ function_call		: ID ( LPAREN (value | ID)
 						(COMA (value | ID))*  RPAREN )
 						| (ID LPAREN RPAREN )
 						;
-
+function_def_args: ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID))  
+					(COMA ((NUMERICAL_VAR_OP  ID) | (LIST_VAR_OP  ID)))*;
 loop				: FOREACH  LPAREN  VAR  IN  ID  RPAREN  LBRACE  operation *  RBRACE SEMI; 
 write		    	: PRINT  LPAREN  ID  RPAREN SEMI; 

@@ -16,5 +16,13 @@ public class ListElement extends Element<ArrayList<Integer>> {
 		this.content = content;
 		this.level = level;
 	}
-	
+	public ListElement(ArrayList<Integer> content)
+	{
+		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return "ListElement [id=" + id + ", content=" + content + "]";
+	}
 }

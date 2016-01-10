@@ -15,4 +15,8 @@ public class NumberElement extends Element<Integer> {
 		this.content = content;
 		this.level = level;
 	}
+	public NumberElement(Integer content)
+	{
+		this.content = content;
+	}
 }

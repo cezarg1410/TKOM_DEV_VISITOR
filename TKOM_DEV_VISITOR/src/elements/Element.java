@@ -14,7 +14,7 @@ public abstract class Element<T extends Object> {
 		this.level = level;
 	}
 
-	public String getId() {
+	private String getId() {
 		return id;
 	}
 	
