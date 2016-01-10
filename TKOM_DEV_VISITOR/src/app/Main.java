@@ -25,7 +25,9 @@ public class Main {
 			ListLanguageParser parser = new ListLanguageParser(tokens);
 			ParseTree tree = parser.compilation_unit();
 			Executor exec = new Executor();
+			
 			new EvalVisitor(parser,exec).visit(tree);
+			int a =2;
 		
 		} catch (IOException e) {
 			e.printStackTrace();

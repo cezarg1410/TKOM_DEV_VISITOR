@@ -56,18 +56,20 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitNumerical_var_dec(Numerical_var_decContext ctx) {
-		if(exec.elementExists(ctx.ID().toString(),level))
-			throw new RuntimeException("Element już istnieje");
-		exec.addNumericalVar(ctx.ID(), ctx.NUMBER(), level);
+		exec.addOperation(ctx);
+//		if(exec.elementExists(ctx.ID().toString(),level))
+//			throw new RuntimeException("Element już istnieje");
+//		exec.addNumericalVar(ctx.ID(), ctx.NUMBER(), level);
 		return super.visitNumerical_var_dec(ctx);
 	}
 
 	@Override
 	public Integer visitList_var_dec(List_var_decContext ctx) {
-		if(exec.elementExists(ctx.ID().toString(),level))
-			throw new RuntimeException("Element już istnieje");
-		exec.addList(ctx.ID(), ctx.list().NUMBER(), level);
-		Logging.logAll("Utworzono listę ",ctx);
+//		if(exec.elementExists(ctx.ID().toString(),level))
+//			throw new RuntimeException("Element już istnieje");
+//		exec.addList(ctx.ID(), ctx.list().NUMBER(), level);
+//		Logging.logAll("Utworzono listę ",ctx);
+		exec.addOperation(ctx);
 		return super.visitList_var_dec(ctx);
 	}
 
@@ -85,7 +87,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitValue(ValueContext ctx) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub5
 		return super.visitValue(ctx);
 	}
 
@@ -94,10 +96,10 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 		//switch(ctx.condition().elementary_condition().l)
 		
-		for(Elementary_conditionContext cond : ctx.condition().elementary_condition())
-		{
-			evalElementaryCondistion(cond);
-		}
+//		for(Elementary_conditionContext cond : ctx.condition().elementary_condition())
+//		{
+//			evalElementaryCondistion(cond);
+//		}
 		return super.visitIf_statement(ctx);
 	}
 
@@ -110,18 +112,19 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 	@Override
 	public Integer visitElementary_condition(Elementary_conditionContext ctx) {
 		// TODO Auto-generated method stub
+		evalElementaryCondition(ctx);
 		return super.visitElementary_condition(ctx);
 	}
 
 	@Override
 	public Integer visitFunction_def(Function_defContext ctx) {
-		// TODO Auto-generated method stub
+		exec.addFunctionDef(ctx);
 		return super.visitFunction_def(ctx);
 	}
 
 	@Override
 	public Integer visitFunction_call(Function_callContext ctx) {
-		// TODO Auto-generated method stub
+		exec.addOperation(ctx);
 		return super.visitFunction_call(ctx);
 	}
 
@@ -209,7 +212,7 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 		super.finalize();
 	}
 
-	private boolean evalElementaryCondistion(Elementary_conditionContext cond) {
+	private boolean evalElementaryCondition(Elementary_conditionContext cond) {
 	switch(cond.LOGICAL_OPERATOR().getText())
 	{
 		case "===":
@@ -218,6 +221,8 @@ public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 		}
 		case "==":
 		{
+			
+			System.out.println("==");
 			break;
 		}
 		case "!=":
