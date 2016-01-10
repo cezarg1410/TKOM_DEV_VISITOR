@@ -23,13 +23,13 @@ import antlr_classes.ListLanguageParser.OperationContext;
 import antlr_classes.ListLanguageParser.ValueContext;
 import antlr_classes.ListLanguageParser.WriteContext;
 
-public class MyVisitor extends ListLanguageBaseVisitor<Integer> {
+public class EvalVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	public ListLanguageParser parser;
 	public Executor exec;
 	public int level = 0;
 	
-	public MyVisitor(ListLanguageParser parser, Executor exec)
+	public EvalVisitor(ListLanguageParser parser, Executor exec)
 	{
 		this.exec = exec;
 		this.parser = parser;
@@ -56,13 +56,18 @@ public class MyVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitNumerical_var_dec(Numerical_var_decContext ctx) {
-		// TODO Auto-generated method stub
+		if(exec.elementExists(ctx.ID().toString(),level))
+			throw new RuntimeException("Element już istnieje");
+		exec.addNumericalVar(ctx.ID(), ctx.NUMBER(), level);
 		return super.visitNumerical_var_dec(ctx);
 	}
 
 	@Override
 	public Integer visitList_var_dec(List_var_decContext ctx) {
-		// TODO Auto-generated method stub
+		if(exec.elementExists(ctx.ID().toString(),level))
+			throw new RuntimeException("Element już istnieje");
+		exec.addList(ctx.ID(), ctx.list().NUMBER(), level);
+		Logging.logAll("Utworzono listę ",ctx);
 		return super.visitList_var_dec(ctx);
 	}
 
@@ -86,7 +91,13 @@ public class MyVisitor extends ListLanguageBaseVisitor<Integer> {
 
 	@Override
 	public Integer visitIf_statement(If_statementContext ctx) {
-		// TODO Auto-generated method stub
+
+		//switch(ctx.condition().elementary_condition().l)
+		
+		for(Elementary_conditionContext cond : ctx.condition().elementary_condition())
+		{
+			evalElementaryCondistion(cond);
+		}
 		return super.visitIf_statement(ctx);
 	}
 
@@ -198,4 +209,41 @@ public class MyVisitor extends ListLanguageBaseVisitor<Integer> {
 		super.finalize();
 	}
 
+	private boolean evalElementaryCondistion(Elementary_conditionContext cond) {
+	switch(cond.LOGICAL_OPERATOR().getText())
+	{
+		case "===":
+		{
+			break;
+		}
+		case "==":
+		{
+			break;
+		}
+		case "!=":
+		{
+			break;
+		}
+		case ">":
+		{
+			break;
+		}
+		case "<":
+		{
+			break;
+		}
+		case "<=":
+		{
+			break;
+		}
+		case ">=":
+		{
+			break;
+		}
+	}
+	
+	return true;
+}
+	
+	
 }
